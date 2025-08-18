@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	
 	  input.addEventListener("input", () => {
 	    const value = input.value || "";
-	    previewText.textContent = lotin_kirill.toLatin(value);
+	    previewText.textContent = lotinKirill.cyrillicToLatin(value);
 	  });
 	});
 });
@@ -75,18 +75,18 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
   // Ensure defaults & build addresses
   for (let i = 1; i <= 5; i++) {
   // Cyrillic → Latin conversion for patient fields
-  data[`full_name_${i}`]  = data[`full_name_${i}`] ? lotin_kirill.toLatin(data[`full_name_${i}`]) : "";
+  data[`full_name_${i}`]  = data[`full_name_${i}`] ? lotinKirill.cyrillicToLatin(data[`full_name_${i}`]) : "";
   data[`id_number_${i}`]  = data[`id_number_${i}`] || "";
   data[`gender_${i}`]     = data[`gender_${i}`] || "";
   data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
-  data[`job_${i}`]        = data[`job_${i}`] ? lotin_kirill.toLatin(data[`job_${i}`]) : "Ishsiz";
-  data[`illness_${i}`]    = data[`illness_${i}`] ? lotin_kirill.toLatin(data[`illness_${i}`]) : "";
+  data[`job_${i}`]        = data[`job_${i}`] ? lotinKirill.cyrillicToLatin(data[`job_${i}`]) : "Ishsiz";
+  data[`illness_${i}`]    = data[`illness_${i}`] ? lotinKirill.cyrillicToLatin(data[`illness_${i}`]) : "";
 
   // Address parts (also transliterated)
-  let district = data[`address_district_${i}`] ? lotin_kirill.toLatin(data[`address_district_${i}`]) : "";
-  let mfy      = data[`address_mfy_${i}`] ? lotin_kirill.toLatin(data[`address_mfy_${i}`]) + " MFY, " : "";
-  let street   = data[`address_street_${i}`] ? lotin_kirill.toLatin(data[`address_street_${i}`]) + " ko‘chasi, " : "";
-  let house    = data[`address_house_${i}`] ? lotin_kirill.toLatin(data[`address_house_${i}`]) + "-uy" : "";
+  let district = data[`address_district_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_district_${i}`]) : "";
+  let mfy      = data[`address_mfy_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_mfy_${i}`]) + " MFY, " : "";
+  let street   = data[`address_street_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_street_${i}`]) + " ko‘chasi, " : "";
+  let house    = data[`address_house_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_house_${i}`]) + "-uy" : "";
 
   data[`address_${i}`] = `${district}, ${mfy}${street}${house}`
     .replace(/,\s*,/g, ",")
@@ -111,7 +111,7 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
-    let nurse = data.nurse_name ? lotin_kirill.toLatin(data.nurse_name) : "Nurse";
+    let nurse = data.nurse_name ? lotinKirill.cyrillicToLatin(data.nurse_name) : "Nurse";
 	let date  = data.date || "Date";
 
 
@@ -126,4 +126,5 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     alert("Failed to generate DOCX. See console for details.");
   }
 });
+
 
