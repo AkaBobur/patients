@@ -5,10 +5,17 @@
   <title>Medical Report Generator</title>
   <link rel="stylesheet" href="index.css">
 
-  <!-- JS libraries (correct order) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.5/pizzip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.38.1/docxtemplater.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <!-- MUST load PizZip first -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.5/pizzip.js"></script>
+
+  <!-- Then Docxtemplater -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.38.1/docxtemplater.js"></script>
+
+  <!-- FileSaver for downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.js"></script>
+
+  <!-- Finally, your custom logic -->
+  <script src="core.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -106,7 +113,7 @@
       <button type="submit">Generate DOCX</button>
     </form>
   </div>
-  <script src="core.js"></script>
 </body>
 </html>
+
 
