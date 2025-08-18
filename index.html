@@ -5,19 +5,13 @@
   <title>Medical Report Generator</title>
   <link rel="stylesheet" href="index.css">
 
-  <!-- Correct PizZip build (standalone) -->
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.js"></script>
-
-  <!-- Docxtemplater (must be after PizZip) -->
   <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.65.3/build/docxtemplater.min.js"></script>
-
-  <!-- FileSaver -->
   <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.js"></script>
 
-  <!-- Your script (must load last) -->
   <script src="core.js" defer></script>
 </head>
-
 <body>
   <div class="container">
     <h2>Generate Medical Report</h2>
@@ -26,97 +20,103 @@
       <label>Nurse Name: <input type="text" name="nurse_name" required></label><br>
       <hr>
 
-      <!-- Patient 1 -->
-      <h3>Patient 1</h3>
-      <label>Full Name: <input type="text" name="full_name_1"></label><br>
-      <label>ID Number: <input type="text" name="id_number_1"></label><br>
-      <label>Gender:
-        <select name="gender_1">
-          <option value="">--Select--</option>
-          <option value="Man">Man</option>
-          <option value="Woman">Woman</option>
-        </select>
-      </label><br>
-      <label>Date of Birth: <input type="date" name="date_of_birthday_1"></label><br>
-      <label>Address: <input type="text" name="address_1"></label><br>
-      <label>Job: <input type="text" name="job_1"></label><br>
-      <label>Illness: <input type="text" name="illness_1"></label><br>
-      <hr>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-target="patient1">Patient 1</button>
+        <button type="button" class="tab-btn" data-target="patient2">Patient 2</button>
+        <button type="button" class="tab-btn" data-target="patient3">Patient 3</button>
+        <button type="button" class="tab-btn" data-target="patient4">Patient 4</button>
+        <button type="button" class="tab-btn" data-target="patient5">Patient 5</button>
+      </div>
 
-      <!-- Patient 2 -->
-      <h3>Patient 2</h3>
-      <label>Full Name: <input type="text" name="full_name_2"></label><br>
-      <label>ID Number: <input type="text" name="id_number_2"></label><br>
-      <label>Gender:
-        <select name="gender_2">
-          <option value="">--Select--</option>
-          <option value="Man">Man</option>
-          <option value="Woman">Woman</option>
-        </select>
-      </label><br>
-      <label>Date of Birth: <input type="date" name="date_of_birthday_2"></label><br>
-      <label>Address: <input type="text" name="address_2"></label><br>
-      <label>Job: <input type="text" name="job_2"></label><br>
-      <label>Illness: <input type="text" name="illness_2"></label><br>
-      <hr>
+      <!-- Patient Forms -->
+      <div id="patient1" class="patient-form active">
+        <h3>Patient 1</h3>
+        <label>Full Name: <input type="text" name="full_name_1"></label><br>
+        <label>ID Number: <input type="text" name="id_number_1"></label><br>
+        <label>Gender:
+          <select name="gender_1">
+            <option value="">--Select--</option>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+          </select>
+        </label><br>
+        <label>Date of Birth: <input type="date" name="date_of_birthday_1"></label><br>
+        <label>Address: <input type="text" name="address_1"></label><br>
+        <label>Job: <input type="text" name="job_1"></label><br>
+        <label>Illness: <input type="text" name="illness_1"></label><br>
+      </div>
 
-      <!-- Patient 3 -->
-      <h3>Patient 3</h3>
-      <label>Full Name: <input type="text" name="full_name_3"></label><br>
-      <label>ID Number: <input type="text" name="id_number_3"></label><br>
-      <label>Gender:
-        <select name="gender_3">
-          <option value="">--Select--</option>
-          <option value="Man">Man</option>
-          <option value="Woman">Woman</option>
-        </select>
-      </label><br>
-      <label>Date of Birth: <input type="date" name="date_of_birthday_3"></label><br>
-      <label>Address: <input type="text" name="address_3"></label><br>
-      <label>Job: <input type="text" name="job_3"></label><br>
-      <label>Illness: <input type="text" name="illness_3"></label><br>
-      <hr>
+      <div id="patient2" class="patient-form">
+        <h3>Patient 2</h3>
+        <label>Full Name: <input type="text" name="full_name_2"></label><br>
+        <label>ID Number: <input type="text" name="id_number_2"></label><br>
+        <label>Gender:
+          <select name="gender_2">
+            <option value="">--Select--</option>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+          </select>
+        </label><br>
+        <label>Date of Birth: <input type="date" name="date_of_birthday_2"></label><br>
+        <label>Address: <input type="text" name="address_2"></label><br>
+        <label>Job: <input type="text" name="job_2"></label><br>
+        <label>Illness: <input type="text" name="illness_2"></label><br>
+      </div>
 
-      <!-- Patient 4 -->
-      <h3>Patient 4</h3>
-      <label>Full Name: <input type="text" name="full_name_4"></label><br>
-      <label>ID Number: <input type="text" name="id_number_4"></label><br>
-      <label>Gender:
-        <select name="gender_4">
-          <option value="">--Select--</option>
-          <option value="Man">Man</option>
-          <option value="Woman">Woman</option>
-        </select>
-      </label><br>
-      <label>Date of Birth: <input type="date" name="date_of_birthday_4"></label><br>
-      <label>Address: <input type="text" name="address_4"></label><br>
-      <label>Job: <input type="text" name="job_4"></label><br>
-      <label>Illness: <input type="text" name="illness_4"></label><br>
-      <hr>
+      <div id="patient3" class="patient-form">
+        <h3>Patient 3</h3>
+        <label>Full Name: <input type="text" name="full_name_3"></label><br>
+        <label>ID Number: <input type="text" name="id_number_3"></label><br>
+        <label>Gender:
+          <select name="gender_3">
+            <option value="">--Select--</option>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+          </select>
+        </label><br>
+        <label>Date of Birth: <input type="date" name="date_of_birthday_3"></label><br>
+        <label>Address: <input type="text" name="address_3"></label><br>
+        <label>Job: <input type="text" name="job_3"></label><br>
+        <label>Illness: <input type="text" name="illness_3"></label><br>
+      </div>
 
-      <!-- Patient 5 -->
-      <h3>Patient 5</h3>
-      <label>Full Name: <input type="text" name="full_name_5"></label><br>
-      <label>ID Number: <input type="text" name="id_number_5"></label><br>
-      <label>Gender:
-        <select name="gender_5">
-          <option value="">--Select--</option>
-          <option value="Man">Man</option>
-          <option value="Woman">Woman</option>
-        </select>
-      </label><br>
-      <label>Date of Birth: <input type="date" name="date_of_birthday_5"></label><br>
-      <label>Address: <input type="text" name="address_5"></label><br>
-      <label>Job: <input type="text" name="job_5"></label><br>
-      <label>Illness: <input type="text" name="illness_5"></label><br>
-      <hr>
+      <div id="patient4" class="patient-form">
+        <h3>Patient 4</h3>
+        <label>Full Name: <input type="text" name="full_name_4"></label><br>
+        <label>ID Number: <input type="text" name="id_number_4"></label><br>
+        <label>Gender:
+          <select name="gender_4">
+            <option value="">--Select--</option>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+          </select>
+        </label><br>
+        <label>Date of Birth: <input type="date" name="date_of_birthday_4"></label><br>
+        <label>Address: <input type="text" name="address_4"></label><br>
+        <label>Job: <input type="text" name="job_4"></label><br>
+        <label>Illness: <input type="text" name="illness_4"></label><br>
+      </div>
+
+      <div id="patient5" class="patient-form">
+        <h3>Patient 5</h3>
+        <label>Full Name: <input type="text" name="full_name_5"></label><br>
+        <label>ID Number: <input type="text" name="id_number_5"></label><br>
+        <label>Gender:
+          <select name="gender_5">
+            <option value="">--Select--</option>
+            <option value="Man">Man</option>
+            <option value="Woman">Woman</option>
+          </select>
+        </label><br>
+        <label>Date of Birth: <input type="date" name="date_of_birthday_5"></label><br>
+        <label>Address: <input type="text" name="address_5"></label><br>
+        <label>Job: <input type="text" name="job_5"></label><br>
+        <label>Illness: <input type="text" name="illness_5"></label><br>
+      </div>
 
       <button type="submit">Generate DOCX</button>
     </form>
   </div>
 </body>
 </html>
-
-
-
-
