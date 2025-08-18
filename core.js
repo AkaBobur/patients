@@ -1,3 +1,21 @@
+// Tab switching
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const forms = document.querySelectorAll(".patient-form");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // deactivate all
+      tabs.forEach(t => t.classList.remove("active"));
+      forms.forEach(f => f.classList.remove("active"));
+
+      // activate current
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.target).classList.add("active");
+    });
+  });
+});
+
 // Helper: convert yyyy-mm-dd → dd.mm.yyyy
 function formatDate(input) {
   if (!input) return "";
@@ -73,6 +91,7 @@ try {
   alert("Failed to generate DOCX. See console for details.");
 }
 });
+
 
 
 
