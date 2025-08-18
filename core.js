@@ -44,7 +44,7 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
   try {
     // Load DOCX template
     // Load template
-    const content = await loadFile("template_fixed_gender.docx");
+    const content = await loadFile("template_{nurse_name}_{date}.docx");
     const zip = new PizZip(content);   // ✅ should now work
     const doc = new window.docxtemplater(zip);
     doc.setData(data);
@@ -71,4 +71,5 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     alert("Failed to generate DOCX. See console for details.");
   }
 });
+
 
