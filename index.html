@@ -8,6 +8,7 @@
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.65.3/build/docxtemplater.min.js"></script>
+  <script src="https://unpkg.com/lotin-kirill@0.1.5/dist-umd/index.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.js"></script>
 
   <script src="core.js" defer></script>
@@ -17,7 +18,7 @@
     <h2>Generate Medical Report</h2>
     <form id="docForm">
       <label>Date: <input type="date" name="date" required></label><br>
-      <label>Nurse Name: <input type="text" name="nurse_name" required></label><br>
+      <input type="text" name="nurse_name" class="latin-preview-input" required>
       <hr>
 
       <!-- Tabs -->
@@ -30,168 +31,245 @@
       </div>
 
       <!-- Patient Forms -->
-      <div id="patient1" class="patient-form active">
-        <h3>Patient 1</h3>
-        <label>Full Name: <input type="text" name="full_name_1"></label><br>
-        <label>ID Number: <input type="text" name="id_number_1"></label><br>
-        <label>Gender:
-          <select name="gender_1">
-            <option value="">--Select--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </label><br>
-        <label>Date of Birth: 
-  <input type="text" name="date_of_birthday_1" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
-</label><br>
-        <label>Address: Shahar / Tuman:
-		  <select name="address_district_1" class="district-select" data-patient="1">
-			<option value="">--Select--</option><br>
-		  </select>
-		</label><br>
-		<label>MFY (optional):
-		  <input type="text" name="address_mfy_1" placeholder="Obod">
-		</label><br>
-		<label>Ko‘cha (Street):
-		  <input type="text" name="address_street_1" placeholder="Turmush">
-		</label><br>
-		<label>Uy raqami (House No.):
-		  <input type="text" name="address_house_1" placeholder="34">
-		</label><br>
-        <label>Job: <input type="text" name="job_1" value="Ishsiz"></label><br>
-        <label>Illness: <input type="text" name="illness_1"></label><br>
-      </div>
+      <!-- Patient 1 -->
+<div id="patient1" class="patient-form active">
+  <h3>Patient 1</h3>
+  <label>Full Name:
+    <input type="text" name="full_name_1" class="latin-preview-input">
+  </label><br>
 
-      <div id="patient2" class="patient-form">
-        <h3>Patient 2</h3>
-        <label>Full Name: <input type="text" name="full_name_2"></label><br>
-        <label>ID Number: <input type="text" name="id_number_2"></label><br>
-        <label>Gender:
-          <select name="gender_2">
-            <option value="">--Select--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </label><br>
-        <label>Date of Birth: 
-		<input type="text" name="date_of_birthday_2" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}"></label><br>
-		<label>Address: Shahar / Tuman:
-		  <select name="address_district_2" class="district-select" data-patient="2">
-			<option value="">--Select--</option><br>
-		  </select>
-		</label><br>
-		<label>MFY (optional):
-		  <input type="text" name="address_mfy_2" placeholder="Obod">
-		</label><br>
-		<label>Ko‘cha (Street):
-		  <input type="text" name="address_street_2" placeholder="Turmush">
-		</label><br>
-		<label>Uy raqami (House No.):
-		  <input type="text" name="address_house_2" placeholder="34">
-		</label><br>
-        <label>Job: <input type="text" name="job_2" value="Ishsiz"></label><br>
-        <label>Illness: <input type="text" name="illness_2"></label><br>
-      </div>
+  <label>ID Number: <input type="text" name="id_number_1"></label><br>
 
-      <div id="patient3" class="patient-form">
-        <h3>Patient 3</h3>
-        <label>Full Name: <input type="text" name="full_name_3"></label><br>
-        <label>ID Number: <input type="text" name="id_number_3"></label><br>
-        <label>Gender:
-          <select name="gender_3">
-            <option value="">--Select--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </label><br>
-        <label>Date of Birth: 
-  <input type="text" name="date_of_birthday_3" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
-</label><br>
-        <label>Address: Shahar / Tuman:
-		  <select name="address_district_3" class="district-select" data-patient="3">
-			<option value="">--Select--</option><br>
-		  </select>
-		</label><br>
-		<label>MFY (optional):
-		  <input type="text" name="address_mfy_3" placeholder="Obod">
-		</label><br>
-		<label>Ko‘cha (Street):
-		  <input type="text" name="address_street_3" placeholder="Turmush">
-		</label><br>
-		<label>Uy raqami (House No.):
-		  <input type="text" name="address_house_3" placeholder="34">
-		</label><br>
-        <label>Job: <input type="text" name="job_3" value="Ishsiz"></label><br>
-        <label>Illness: <input type="text" name="illness_3"></label><br>
-      </div>
+  <label>Gender:
+    <select name="gender_1">
+      <option value="">--Select--</option>
+      <option value="Man">Man</option>
+      <option value="Woman">Woman</option>
+    </select>
+  </label><br>
 
-      <div id="patient4" class="patient-form">
-        <h3>Patient 4</h3>
-        <label>Full Name: <input type="text" name="full_name_4"></label><br>
-        <label>ID Number: <input type="text" name="id_number_4"></label><br>
-        <label>Gender:
-          <select name="gender_4">
-            <option value="">--Select--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </label><br>
-        <label>Date of Birth: 
-  <input type="text" name="date_of_birthday_4" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
-</label><br>
-        <label>Address: Shahar / Tuman:
-		  <select name="address_district_4" class="district-select" data-patient="4">
-			<option value="">--Select--</option><br>
-		  </select>
-		</label><br>
-		<label>MFY (optional):
-		  <input type="text" name="address_mfy_4" placeholder="Obod">
-		</label><br>
-		<label>Ko‘cha (Street):
-		  <input type="text" name="address_street_4" placeholder="Turmush">
-		</label><br>
-		<label>Uy raqami (House No.):
-		  <input type="text" name="address_house_4" placeholder="34">
-		</label><br>
-        <label>Job: <input type="text" name="job_4" value="Ishsiz"></label><br>
-        <label>Illness: <input type="text" name="illness_4"></label><br>
-      </div>
+  <label>Date of Birth:
+    <input type="text" name="date_of_birthday_1" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
+  </label><br>
 
-      <div id="patient5" class="patient-form">
-        <h3>Patient 5</h3>
-        <label>Full Name: <input type="text" name="full_name_5"></label><br>
-        <label>ID Number: <input type="text" name="id_number_5"></label><br>
-        <label>Gender:
-          <select name="gender_5">
-            <option value="">--Select--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </label><br>
-        <label>Date of Birth: 
-  <input type="text" name="date_of_birthday_5" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
-</label><br>
-        <label>Address: Shahar / Tuman:
-		  <select name="address_district_5" class="district-select" data-patient="5">
-			<option value="">--Select--</option><br>
-		  </select>
-		</label><br>
-		<label>MFY (optional):
-		  <input type="text" name="address_mfy_5" placeholder="Obod">
-		</label><br>
-		<label>Ko‘cha (Street):
-		  <input type="text" name="address_street_5" placeholder="Turmush">
-		</label><br>
-		<label>Uy raqami (House No.):
-		  <input type="text" name="address_house_5" placeholder="34">
-		</label><br>
-        <label>Job: <input type="text" name="job_5" value="Ishsiz"></label><br>
-        <label>Illness: <input type="text" name="illness_5"></label><br>
-      </div>
+  <label>Address: Shahar / Tuman:
+    <select name="address_district_1" class="district-select" data-patient="1">
+      <option value="">--Select--</option>
+    </select>
+  </label><br>
 
-      <button type="submit">Generate DOCX</button>
-    </form>
-  </div>
+  <label>MFY (optional):
+    <input type="text" name="address_mfy_1" class="latin-preview-input" placeholder="Obod">
+  </label><br>
+
+  <label>Ko‘cha (Street):
+    <input type="text" name="address_street_1" class="latin-preview-input" placeholder="Turmush">
+  </label><br>
+
+  <label>Uy raqami (House No.):
+    <input type="text" name="address_house_1" placeholder="34">
+  </label><br>
+
+  <label>Job:
+    <input type="text" name="job_1" class="latin-preview-input" value="Ishsiz">
+  </label><br>
+
+  <label>Illness:
+    <input type="text" name="illness_1" class="latin-preview-input">
+  </label><br>
+</div>
+
+<!-- Patient 2 -->
+<div id="patient2" class="patient-form">
+  <h3>Patient 2</h3>
+  <label>Full Name:
+    <input type="text" name="full_name_2" class="latin-preview-input">
+  </label><br>
+
+  <label>ID Number: <input type="text" name="id_number_2"></label><br>
+
+  <label>Gender:
+    <select name="gender_2">
+      <option value="">--Select--</option>
+      <option value="Man">Man</option>
+      <option value="Woman">Woman</option>
+    </select>
+  </label><br>
+
+  <label>Date of Birth:
+    <input type="text" name="date_of_birthday_2" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
+  </label><br>
+
+  <label>Address: Shahar / Tuman:
+    <select name="address_district_2" class="district-select" data-patient="2">
+      <option value="">--Select--</option>
+    </select>
+  </label><br>
+
+  <label>MFY (optional):
+    <input type="text" name="address_mfy_2" class="latin-preview-input" placeholder="Obod">
+  </label><br>
+
+  <label>Ko‘cha (Street):
+    <input type="text" name="address_street_2" class="latin-preview-input" placeholder="Turmush">
+  </label><br>
+
+  <label>Uy raqami (House No.):
+    <input type="text" name="address_house_2" placeholder="34">
+  </label><br>
+
+  <label>Job:
+    <input type="text" name="job_2" class="latin-preview-input" value="Ishsiz">
+  </label><br>
+
+  <label>Illness:
+    <input type="text" name="illness_2" class="latin-preview-input">
+  </label><br>
+</div>
+
+<!-- Patient 3 -->
+<div id="patient3" class="patient-form">
+  <h3>Patient 3</h3>
+  <label>Full Name:
+    <input type="text" name="full_name_3" class="latin-preview-input">
+  </label><br>
+
+  <label>ID Number: <input type="text" name="id_number_3"></label><br>
+
+  <label>Gender:
+    <select name="gender_3">
+      <option value="">--Select--</option>
+      <option value="Man">Man</option>
+      <option value="Woman">Woman</option>
+    </select>
+  </label><br>
+
+  <label>Date of Birth:
+    <input type="text" name="date_of_birthday_3" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
+  </label><br>
+
+  <label>Address: Shahar / Tuman:
+    <select name="address_district_3" class="district-select" data-patient="3">
+      <option value="">--Select--</option>
+    </select>
+  </label><br>
+
+  <label>MFY (optional):
+    <input type="text" name="address_mfy_3" class="latin-preview-input" placeholder="Obod">
+  </label><br>
+
+  <label>Ko‘cha (Street):
+    <input type="text" name="address_street_3" class="latin-preview-input" placeholder="Turmush">
+  </label><br>
+
+  <label>Uy raqami (House No.):
+    <input type="text" name="address_house_3" placeholder="34">
+  </label><br>
+
+  <label>Job:
+    <input type="text" name="job_3" class="latin-preview-input" value="Ishsiz">
+  </label><br>
+
+  <label>Illness:
+    <input type="text" name="illness_3" class="latin-preview-input">
+  </label><br>
+</div>
+
+<!-- Patient 4 -->
+<div id="patient4" class="patient-form">
+  <h3>Patient 4</h3>
+  <label>Full Name:
+    <input type="text" name="full_name_4" class="latin-preview-input">
+  </label><br>
+
+  <label>ID Number: <input type="text" name="id_number_4"></label><br>
+
+  <label>Gender:
+    <select name="gender_4">
+      <option value="">--Select--</option>
+      <option value="Man">Man</option>
+      <option value="Woman">Woman</option>
+    </select>
+  </label><br>
+
+  <label>Date of Birth:
+    <input type="text" name="date_of_birthday_4" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
+  </label><br>
+
+  <label>Address: Shahar / Tuman:
+    <select name="address_district_4" class="district-select" data-patient="4">
+      <option value="">--Select--</option>
+    </select>
+  </label><br>
+
+  <label>MFY (optional):
+    <input type="text" name="address_mfy_4" class="latin-preview-input" placeholder="Obod">
+  </label><br>
+
+  <label>Ko‘cha (Street):
+    <input type="text" name="address_street_4" class="latin-preview-input" placeholder="Turmush">
+  </label><br>
+
+  <label>Uy raqami (House No.):
+    <input type="text" name="address_house_4" placeholder="34">
+  </label><br>
+
+  <label>Job:
+    <input type="text" name="job_4" class="latin-preview-input" value="Ishsiz">
+  </label><br>
+
+  <label>Illness:
+    <input type="text" name="illness_4" class="latin-preview-input">
+  </label><br>
+</div>
+
+<!-- Patient 5 -->
+<div id="patient5" class="patient-form">
+  <h3>Patient 5</h3>
+  <label>Full Name:
+    <input type="text" name="full_name_5" class="latin-preview-input">
+  </label><br>
+
+  <label>ID Number: <input type="text" name="id_number_5"></label><br>
+
+  <label>Gender:
+    <select name="gender_5">
+      <option value="">--Select--</option>
+      <option value="Man">Man</option>
+      <option value="Woman">Woman</option>
+    </select>
+  </label><br>
+
+  <label>Date of Birth:
+    <input type="text" name="date_of_birthday_5" placeholder="dd.mm.yyyy" pattern="\d{2}\.\d{2}\.\d{4}">
+  </label><br>
+
+  <label>Address: Shahar / Tuman:
+    <select name="address_district_5" class="district-select" data-patient="5">
+      <option value="">--Select--</option>
+    </select>
+  </label><br>
+
+  <label>MFY (optional):
+    <input type="text" name="address_mfy_5" class="latin-preview-input" placeholder="Obod">
+  </label><br>
+
+  <label>Ko‘cha (Street):
+    <input type="text" name="address_street_5" class="latin-preview-input" placeholder="Turmush">
+  </label><br>
+
+  <label>Uy raqami (House No.):
+    <input type="text" name="address_house_5" placeholder="34">
+  </label><br>
+
+  <label>Job:
+    <input type="text" name="job_5" class="latin-preview-input" value="Ishsiz">
+  </label><br>
+
+  <label>Illness:
+    <input type="text" name="illness_5" class="latin-preview-input">
+  </label><br>
+</div>
 </body>
 </html>
 

@@ -191,3 +191,14 @@ hr{
   .patient-form{ background:#111726; }
   h3{ background:#13233b; }
 }
+
+.field-group {
+  margin-bottom: 1em;
+}
+
+.preview {
+  font-size: 0.85em;
+  color: #555;
+  margin: 2px 0 10px 4px;
+  font-style: italic;
+}

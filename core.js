@@ -30,6 +30,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("Failed to load districts:", err);
   }
+  document.querySelectorAll(".latin-preview-input").forEach(input => {
+    const preview = input.closest(".field-group").querySelector(".preview-text");
+    input.addEventListener("input", () => {
+      const value = input.value || "";
+      const latin = lotin_kirill.toLatin(value);
+      preview.textContent = latin;
+    });
+  });
 });
 
 // ---- Load file as ArrayBuffer ----
@@ -60,22 +68,24 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
 
   // Ensure defaults & build addresses
   for (let i = 1; i <= 5; i++) {
-    data[`full_name_${i}`] = data[`full_name_${i}`] || "";
-    data[`id_number_${i}`] = data[`id_number_${i}`] || "";
-    data[`gender_${i}`] = data[`gender_${i}`] || "";
-    data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
-    data[`job_${i}`] = data[`job_${i}`] || "Ishsiz";
-    data[`illness_${i}`] = data[`illness_${i}`] || "";
+  // Cyrillic → Latin conversion for patient fields
+  data[`full_name_${i}`]  = data[`full_name_${i}`] ? lotin_kirill.toLatin(data[`full_name_${i}`]) : "";
+  data[`id_number_${i}`]  = data[`id_number_${i}`] || "";
+  data[`gender_${i}`]     = data[`gender_${i}`] || "";
+  data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
+  data[`job_${i}`]        = data[`job_${i}`] ? lotin_kirill.toLatin(data[`job_${i}`]) : "Ishsiz";
+  data[`illness_${i}`]    = data[`illness_${i}`] ? lotin_kirill.toLatin(data[`illness_${i}`]) : "";
 
-    let district = data[`address_district_${i}`] || "";
-    let mfy = data[`address_mfy_${i}`] ? data[`address_mfy_${i}`] + " MFY, " : "";
-    let street = data[`address_street_${i}`] ? data[`address_street_${i}`] + " ko‘chasi, " : "";
-    let house = data[`address_house_${i}`] ? data[`address_house_${i}`] + "-uy" : "";
+  // Address parts (also transliterated)
+  let district = data[`address_district_${i}`] ? lotin_kirill.toLatin(data[`address_district_${i}`]) : "";
+  let mfy      = data[`address_mfy_${i}`] ? lotin_kirill.toLatin(data[`address_mfy_${i}`]) + " MFY, " : "";
+  let street   = data[`address_street_${i}`] ? lotin_kirill.toLatin(data[`address_street_${i}`]) + " ko‘chasi, " : "";
+  let house    = data[`address_house_${i}`] ? lotin_kirill.toLatin(data[`address_house_${i}`]) + "-uy" : "";
 
-    data[`address_${i}`] = `${district}, ${mfy}${street}${house}`
-      .replace(/,\s*,/g, ",")
-      .replace(/,\s*$/, "");
-  }
+  data[`address_${i}`] = `${district}, ${mfy}${street}${house}`
+    .replace(/,\s*,/g, ",")
+    .replace(/,\s*$/, "");
+}
 
   try {
     const content = await loadFile("template_{nurse_name}_{date}.docx");
@@ -95,8 +105,9 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
-    let nurse = data.nurse_name || "Nurse";
-    let date = data.date || "Date";
+    let nurse = data.nurse_name ? lotin_kirill.toLatin(data.nurse_name) : "Nurse";
+	let date  = data.date || "Date";
+
 
     nurse = nurse.replace(/\s+/g, "_");
     date = date.replace(/\//g, ".").replace(/-/g, ".");
