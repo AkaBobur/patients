@@ -42,7 +42,7 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
   }
 
 try {
-  const content = await loadFile("template_fixed_gender.docx");
+  const content = await loadFile("template_{nurse_name}_{date}.docx");
   const zip = new PizZip(content);
 
   // ✅ Correct constructor
@@ -73,6 +73,7 @@ try {
   alert("Failed to generate DOCX. See console for details.");
 }
 });
+
 
 
 
