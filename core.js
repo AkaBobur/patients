@@ -46,7 +46,7 @@ try {
   const zip = new PizZip(content);
 
   // ✅ Correct constructor
-  const doc = new window.Docxtemplater(zip, {
+  const doc = new window.docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks: true,
   });
@@ -73,6 +73,7 @@ try {
   alert("Failed to generate DOCX. See console for details.");
 }
 });
+
 
 
 
