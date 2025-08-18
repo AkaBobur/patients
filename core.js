@@ -55,7 +55,7 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     data[`gender_${i}`] = data[`gender_${i}`] || "";
     data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
     data[`address_${i}`] = data[`address_${i}`] || "";
-    data[`job_${i}`] = data[`job_${i}`] || "";
+    data[`job_${i}`] = data[`job_${i}`] || "Ishsiz";
     data[`illness_${i}`] = data[`illness_${i}`] || "";
   }
 
@@ -91,6 +91,7 @@ try {
   alert("Failed to generate DOCX. See console for details.");
 }
 });
+
 
 
 
