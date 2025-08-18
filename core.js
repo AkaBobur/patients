@@ -1,8 +1,3 @@
-// Load file helper
-async function loadFile(url, callback) {
-  PizZipUtils.getBinaryContent(url, callback);
-}
-
 // Helper: convert yyyy-mm-dd → dd.mm.yyyy
 function formatDate(input) {
   if (!input) return "";
@@ -13,7 +8,14 @@ function formatDate(input) {
   return input;
 }
 
-document.getElementById("docForm").addEventListener("submit", function(e) {
+// Helper: load file as ArrayBuffer
+async function loadFile(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Failed to load template");
+  return await response.arrayBuffer();
+}
+
+document.getElementById("docForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
@@ -39,24 +41,14 @@ document.getElementById("docForm").addEventListener("submit", function(e) {
     data[`illness_${i}`] = data[`illness_${i}`] || "";
   }
 
-  // Load template
-  loadFile("template_{nurse_name}_{date}.docx", function(error, content) {
-    if (error) { 
-      alert("Template load error: " + error); 
-      throw error; 
-    }
-
+  try {
+    // Load DOCX template
+    const content = await loadFile("template_{nurse_name}_{date}.docx");
     const zip = new PizZip(content);
     const doc = new window.docxtemplater().loadZip(zip);
     doc.setData(data);
 
-    try {
-      doc.render();
-    } catch (error) {
-      console.error("Template rendering error:", error);
-      alert("Error while rendering document. Check console.");
-      throw error;
-    }
+    doc.render();
 
     const out = doc.getZip().generate({
       type: "blob",
@@ -72,5 +64,9 @@ document.getElementById("docForm").addEventListener("submit", function(e) {
 
     let filename = `OIV_${nurse}_${date}.docx`;
     saveAs(out, filename);
-  });
+
+  } catch (error) {
+    console.error("Error while generating document:", error);
+    alert("Failed to generate DOCX. See console for details.");
+  }
 });
