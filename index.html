@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Medical Report Generator</title>
+  <link rel="stylesheet" href="index.css">
+
+  <!-- JS libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.5/pizzip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip-utils/3.0.4/pizzip-utils.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.38.1/docxtemplater.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Generate Medical Report</h2>
+    <form id="docForm">
+      <label>Date: <input type="date" name="date" required></label><br>
+      <label>Nurse Name: <input type="text" name="nurse_name" required></label><br>
+      <hr>
+
+      <!-- Patient 1 -->
+      <h3>Patient 1</h3>
+      <label>Full Name: <input type="text" name="full_name_1"></label><br>
+      <label>ID Number: <input type="text" name="id_number_1"></label><br>
+      <label>Gender:
+        <select name="gender_1">
+          <option value="">--Select--</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+        </select>
+      </label><br>
+      <label>Date of Birth: <input type="date" name="date_of_birthday_1"></label><br>
+      <label>Address: <input type="text" name="address_1"></label><br>
+      <label>Job: <input type="text" name="job_1"></label><br>
+      <label>Illness: <input type="text" name="illness_1"></label><br>
+      <hr>
+
+      <!-- Patient 2 -->
+      <h3>Patient 2</h3>
+      <label>Full Name: <input type="text" name="full_name_2"></label><br>
+      <label>ID Number: <input type="text" name="id_number_2"></label><br>
+      <label>Gender:
+        <select name="gender_2">
+          <option value="">--Select--</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+        </select>
+      </label><br>
+      <label>Date of Birth: <input type="date" name="date_of_birthday_2"></label><br>
+      <label>Address: <input type="text" name="address_2"></label><br>
+      <label>Job: <input type="text" name="job_2"></label><br>
+      <label>Illness: <input type="text" name="illness_2"></label><br>
+      <hr>
+
+      <!-- Patient 3 -->
+      <h3>Patient 3</h3>
+      <label>Full Name: <input type="text" name="full_name_3"></label><br>
+      <label>ID Number: <input type="text" name="id_number_3"></label><br>
+      <label>Gender:
+        <select name="gender_3">
+          <option value="">--Select--</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+        </select>
+      </label><br>
+      <label>Date of Birth: <input type="date" name="date_of_birthday_3"></label><br>
+      <label>Address: <input type="text" name="address_3"></label><br>
+      <label>Job: <input type="text" name="job_3"></label><br>
+      <label>Illness: <input type="text" name="illness_3"></label><br>
+      <hr>
+
+      <!-- Patient 4 -->
+      <h3>Patient 4</h3>
+      <label>Full Name: <input type="text" name="full_name_4"></label><br>
+      <label>ID Number: <input type="text" name="id_number_4"></label><br>
+      <label>Gender:
+        <select name="gender_4">
+          <option value="">--Select--</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+        </select>
+      </label><br>
+      <label>Date of Birth: <input type="date" name="date_of_birthday_4"></label><br>
+      <label>Address: <input type="text" name="address_4"></label><br>
+      <label>Job: <input type="text" name="job_4"></label><br>
+      <label>Illness: <input type="text" name="illness_4"></label><br>
+      <hr>
+
+      <!-- Patient 5 -->
+      <h3>Patient 5</h3>
+      <label>Full Name: <input type="text" name="full_name_5"></label><br>
+      <label>ID Number: <input type="text" name="id_number_5"></label><br>
+      <label>Gender:
+        <select name="gender_5">
+          <option value="">--Select--</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+        </select>
+      </label><br>
+      <label>Date of Birth: <input type="date" name="date_of_birthday_5"></label><br>
+      <label>Address: <input type="text" name="address_5"></label><br>
+      <label>Job: <input type="text" name="job_5"></label><br>
+      <label>Illness: <input type="text" name="illness_5"></label><br>
+      <hr>
+
+      <button type="submit">Generate DOCX</button>
+    </form>
+  </div>
+  <script src="core.js"></script>
+</body>
+</html>
