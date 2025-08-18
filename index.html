@@ -5,18 +5,19 @@
   <title>Medical Report Generator</title>
   <link rel="stylesheet" href="index.css">
 
-  <!-- MUST load PizZip first -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.5/pizzip.js"></script>
+  <!-- Correct PizZip build (standalone) -->
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.js"></script>
 
-  <!-- Then Docxtemplater -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.38.1/docxtemplater.js"></script>
+  <!-- Docxtemplater (must be after PizZip) -->
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.38.1/build/docxtemplater.js"></script>
 
-  <!-- FileSaver for downloads -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.js"></script>
+  <!-- FileSaver -->
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.js"></script>
 
-  <!-- Finally, your custom logic -->
+  <!-- Your script (must load last) -->
   <script src="core.js" defer></script>
 </head>
+
 <body>
   <div class="container">
     <h2>Generate Medical Report</h2>
@@ -115,5 +116,6 @@
   </div>
 </body>
 </html>
+
 
 
