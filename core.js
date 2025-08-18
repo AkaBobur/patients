@@ -41,35 +41,38 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     data[`illness_${i}`] = data[`illness_${i}`] || "";
   }
 
-  try {
-    // Load DOCX template
-    // Load template
-    const content = await loadFile("template_{nurse_name}_{date}.docx");
-    const zip = new PizZip(content);   // ✅ should now work
-    const doc = new window.docxtemplater(zip);
-    doc.setData(data);
+try {
+  const content = await loadFile("template_fixed_gender.docx");
+  const zip = new PizZip(content);
 
-    doc.render();
+  // ✅ Correct constructor
+  const doc = new window.Docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+  });
 
-    const out = doc.getZip().generate({
-      type: "blob",
-      mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    });
+  doc.setData(data);
+  doc.render();
 
-    // Dynamic filename
-    let nurse = data.nurse_name || "Nurse";
-    let date = data.date || "Date";
+  const out = doc.getZip().generate({
+    type: "blob",
+    mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  });
 
-    nurse = nurse.replace(/\s+/g, "_");
-    date = date.replace(/\//g, ".").replace(/-/g, ".");
+  let nurse = data.nurse_name || "Nurse";
+  let date = data.date || "Date";
 
-    let filename = `OIV_${nurse}_${date}.docx`;
-    saveAs(out, filename);
+  nurse = nurse.replace(/\s+/g, "_");
+  date = date.replace(/\//g, ".").replace(/-/g, ".");
 
-  } catch (error) {
-    console.error("Error while generating document:", error);
-    alert("Failed to generate DOCX. See console for details.");
-  }
+  let filename = `OIV_${nurse}_${date}.docx`;
+  saveAs(out, filename);
+
+} catch (error) {
+  console.error("Error while generating document:", error);
+  alert("Failed to generate DOCX. See console for details.");
+}
 });
+
 
 
