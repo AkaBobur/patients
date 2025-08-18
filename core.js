@@ -31,13 +31,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to load districts:", err);
   }
   document.querySelectorAll(".latin-preview-input").forEach(input => {
-    const preview = input.closest(".field-group").querySelector(".preview-text");
-    input.addEventListener("input", () => {
-      const value = input.value || "";
-      const latin = lotin_kirill.toLatin(value);
-      preview.textContent = latin;
-    });
-  });
+	  // create preview element if not already there
+	  let preview = document.createElement("div");
+	  preview.className = "preview";
+	  preview.innerHTML = 'Preview (Latin): <span class="preview-text"></span>';
+	  input.insertAdjacentElement("afterend", preview);
+	
+	  const previewText = preview.querySelector(".preview-text");
+	
+	  input.addEventListener("input", () => {
+	    const value = input.value || "";
+	    previewText.textContent = lotin_kirill.toLatin(value);
+	  });
+	});
 });
 
 // ---- Load file as ArrayBuffer ----
@@ -120,3 +126,4 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     alert("Failed to generate DOCX. See console for details.");
   }
 });
+
