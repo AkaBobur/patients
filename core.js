@@ -1,3 +1,12 @@
+// ---- Helper: convert yyyy-mm-dd → dd.mm.yyyy ----
+function formatDate(input) {
+  if (!input) return "";
+  const parts = input.split("-");
+  if (parts.length === 3) {
+    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+  }
+  return input;
+}
 document.addEventListener("DOMContentLoaded", async () => {
   // ---- Tab switching ----
   const tabs = document.querySelectorAll(".tab-btn");
@@ -126,5 +135,6 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     alert("Failed to generate DOCX. See console for details.");
   }
 });
+
 
 
