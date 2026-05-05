@@ -7,6 +7,7 @@ function formatDate(input) {
   }
   return input;
 }
+
 document.addEventListener("DOMContentLoaded", async () => {
   // ---- Tab switching ----
   const tabs = document.querySelectorAll(".tab-btn");
@@ -39,20 +40,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("Failed to load districts:", err);
   }
+  
   document.querySelectorAll(".latin-preview-input").forEach(input => {
-	  // create preview element if not already there
-	  let preview = document.createElement("div");
-	  preview.className = "preview";
-	  preview.innerHTML = 'Preview (Latin): <span class="preview-text"></span>';
-	  input.insertAdjacentElement("afterend", preview);
-	
-	  const previewText = preview.querySelector(".preview-text");
-	
-	  input.addEventListener("input", () => {
-	    const value = input.value || "";
-	    previewText.textContent = lotinKirill.cyrillicToLatin(value);
-	  });
-	});
+    let preview = document.createElement("div");
+    preview.className = "preview";
+    preview.innerHTML = 'Preview (Latin): <span class="preview-text"></span>';
+    input.insertAdjacentElement("afterend", preview);
+  
+    const previewText = preview.querySelector(".preview-text");
+  
+    input.addEventListener("input", () => {
+      const value = input.value || "";
+      previewText.textContent = lotinKirill.cyrillicToLatin(value);
+    });
+  });
 });
 
 // ---- Load file as ArrayBuffer ----
@@ -69,44 +70,42 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
   const formData = new FormData(e.target);
   const data = {};
 
-  // Collect values as-is
+  // Collect values
   for (let [key, value] of formData.entries()) {
-	if (key === "date") {
-	// only format the report date (from date picker)
-		data[key] = formatDate(value);
-	} else {
-	// patients' birthdays are typed manually as dd.mm.yyyy
-		data[key] = value || "";
-	  }
-	}
+    if (key === "date") {
+      data[key] = formatDate(value);
+    } else {
+      data[key] = value || "";
+    }
+  }
 
-
-  // Ensure defaults & build addresses
+  // Build addresses & transliterate
   for (let i = 1; i <= 5; i++) {
-  // Cyrillic → Latin conversion for patient fields
-  data[`full_name_${i}`]  = data[`full_name_${i}`] ? lotinKirill.cyrillicToLatin(data[`full_name_${i}`]) : "";
-  data[`id_number_${i}`]  = data[`id_number_${i}`] || "";
-  data[`gender_${i}`]     = data[`gender_${i}`] || "";
-  data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
-  data[`job_${i}`]        = data[`job_${i}`] ? lotinKirill.cyrillicToLatin(data[`job_${i}`]) : "Ishsiz";
-  data[`illness_${i}`]    = data[`illness_${i}`] ? lotinKirill.cyrillicToLatin(data[`illness_${i}`]) : "";
+    // Convert Cyrillic → Latin for relevant fields
+    data[`full_name_${i}`]  = data[`full_name_${i}`] ? lotinKirill.cyrillicToLatin(data[`full_name_${i}`]) : "";
+    data[`id_number_${i}`]  = data[`id_number_${i}`] || "";
+    data[`gender_${i}`]     = data[`gender_${i}`] || "";
+    data[`date_of_birthday_${i}`] = data[`date_of_birthday_${i}`] || "";
+    data[`job_${i}`]        = data[`job_${i}`] ? lotinKirill.cyrillicToLatin(data[`job_${i}`]) : "Ishsiz";
+    data[`illness_${i}`]    = data[`illness_${i}`] ? lotinKirill.cyrillicToLatin(data[`illness_${i}`]) : "";
 
-  // Address parts (also transliterated)
-  let district = data[`address_district_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_district_${i}`]) : "";
-  let mfy      = data[`address_mfy_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_mfy_${i}`]) + " MFY, " : "";
-  let street   = data[`address_street_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_street_${i}`]) + " ko‘chasi, " : "";
-  let house    = data[`address_house_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_house_${i}`]) + "-uy" : "";
+    // Build address
+    let district = data[`address_district_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_district_${i}`]) : "";
+    let mfy      = data[`address_mfy_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_mfy_${i}`]) + " MFY, " : "";
+    let street   = data[`address_street_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_street_${i}`]) + " ko‘chasi, " : "";
+    let house    = data[`address_house_${i}`] ? lotinKirill.cyrillicToLatin(data[`address_house_${i}`]) + "-uy" : "";
 
-  data[`address_${i}`] = `${district}, ${mfy}${street}${house}`
-    .replace(/,\s*,/g, ",")
-    .replace(/,\s*$/, "");
-}
+    data[`address_${i}`] = `${district}, ${mfy}${street}${house}`
+      .replace(/,\s*,/g, ",")
+      .replace(/,\s*$/, "");
+
+    // ✅ CRITICAL: Set conditional flag - show patient only if full_name exists
+    data[`patient${i}`] = !!(data[`full_name_${i}`] && data[`full_name_${i}`].trim() !== "");
+  }
 
   try {
     const content = await loadFile("template_{nurse_name}_{date}.docx");
     const zip = new PizZip(content);
-
-    // ✅ lowercase constructor
     const doc = new docxtemplater(zip, {
       paragraphLoop: true,
       linebreaks: true,
@@ -121,8 +120,7 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     });
 
     let nurse = data.nurse_name ? lotinKirill.cyrillicToLatin(data.nurse_name) : "Nurse";
-	let date  = data.date || "Date";
-
+    let date  = data.date || "Date";
 
     nurse = nurse.replace(/\s+/g, "_");
     date = date.replace(/\//g, ".").replace(/-/g, ".");
@@ -135,6 +133,3 @@ document.getElementById("docForm").addEventListener("submit", async function(e) 
     alert("Failed to generate DOCX. See console for details.");
   }
 });
-
-
-
